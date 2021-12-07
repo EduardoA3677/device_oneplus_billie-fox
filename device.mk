@@ -4,6 +4,9 @@ LOCAL_PATH := device/oneplus/billie
 # define hardware platform
 PRODUCT_PLATFORM := lito
 
+# Dynamic
+PRODUCT_USE_DYNAMIC_PARTITIONS := true
+
 #TEST
 # A/B support
 PRODUCT_PACKAGES += \
@@ -31,6 +34,12 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_HOST_PACKAGES += \
     libandroidicu
+
+# FastbootD
+PRODUCT_PACKAGES += \
+    fastbootd \
+    android.hardware.fastboot@1.0-impl-mock \
+    android.hardware.fastboot@1.0-impl-mock.recovery
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
