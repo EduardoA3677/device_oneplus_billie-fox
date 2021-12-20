@@ -95,6 +95,7 @@ BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_VENDORIMAGE_PARTITION_SIZE := 1073741824
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
+#BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
 #BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
 #BOARD_ODMIMAGE_FILE_SYSTEM_TYPE := ext4
 
@@ -105,10 +106,13 @@ BOARD_SUPER_PARTITION_SIZE := 15032385536
 BOARD_SUPER_PARTITION_GROUPS := qti_dynamic_partitions
 BOARD_QTI_DYNAMIC_PARTITIONS_SIZE := 7515668480
 BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST := \
+    system_ext \
     system \
     product \
     vendor \
     odm
+
+BOARD_ROOT_EXTRA_FOLDERS := op1 op2
 
 TARGET_NO_KERNEL := false
 TARGET_NO_RECOVERY := false
@@ -116,8 +120,8 @@ TARGET_NO_RECOVERY := false
 #BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 
 # Partitions (listed in the file) to be wiped under recovery.
-TARGET_RECOVERY_WIPE := $(LOCAL_PATH)/recovery.wipe
-TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery.fstab
+TARGET_RECOVERY_WIPE := $(LOCAL_PATH)/recovery/root/system/etc/recovery.wipe
+TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery/root/system/etc/recovery.fstab
 
 # Workaround for error copying vendor files to recovery ramdisk
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
@@ -155,10 +159,15 @@ TARGET_USES_MKE2FS := true
 # more partitions to this list for the bootloader and radio.
 AB_OTA_PARTITIONS += \
     boot \
+    dtbo \
+    odm \
+    product \
+    recovery \
     system \
-    vendor \
+    system_ext \
     vbmeta \
-    dtbo 
+    vbmeta_system \
+    vendor
 
 # tell update_engine to not change dynamic partition table during updates
 # needed since our qti_dynamic_partitions does not include
